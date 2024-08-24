@@ -1,6 +1,4 @@
-package AboutJAVA.Library;
-
-import java.time.LocalDateTime;
+package AboutJAVA.OOP;
 
 public class Library {
     private String name;

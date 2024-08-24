@@ -1,4 +1,4 @@
-package AboutJAVA.Library;
+package AboutJAVA.OOP;
 
 public class Member {
     private String name;
