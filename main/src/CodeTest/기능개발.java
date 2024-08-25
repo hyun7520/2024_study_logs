@@ -1,48 +1,55 @@
 package CodeTest;
 
-import java.util.Arrays;
-import java.util.Stack;
+import java.util.*;
 
 public class 기능개발 {
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
+
+        기능개발Solution sol = new 기능개발Solution();
 
         int[] progresses = {93, 30, 55};
         int[] speeds = {1, 30, 5};
-        System.out.println(Arrays.toString(solution(progresses, speeds)));
+        System.out.println(Arrays.toString(sol.solution(progresses, speeds)));
 
     }
+}
 
+class 기능개발Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        int[] answer = {};
 
-        Stack<Integer> maxDays = new Stack<>();
-        Stack<Integer> deploy = new Stack<>();
+        Queue<Integer> develop = new LinkedList<>();
 
         int days = 0;
 
         for(int i = 0; i < progresses.length; i++) {
             days = 100 - progresses[i];
             if(days % speeds[i] != 0) {
-                maxDays.push(days/speeds[i] + 1);
+                develop.add(days/speeds[i] + 1);
             } else {
-                maxDays.push(days/speeds[i]);
+                develop.add(days/speeds[i]);
             }
         }
 
-        int deploys = 0;
+        int deploy = 1, now = develop.poll();
+        List<Integer> list = new ArrayList<>();
 
-        while(!maxDays.isEmpty()) {
+        while(!develop.isEmpty()) {
 
-            int now = maxDays.pop();
-            int next = maxDays.peek();
-
-            if(now > next) {
-
-            } else if(now < next || now == next) {
-
+            if(now >= develop.peek()) {
+                deploy += 1;
+                develop.poll();
+            } else {
+                list.add(deploy);
+                deploy = 1;
+                now = develop.poll();
             }
+        }
+        list.add(deploy);
 
+        int[] answer = new int[list.size()];
+        for(int i = 0; i < list.size(); i++) {
+            answer[i] = list.get(i);
         }
 
         return answer;
