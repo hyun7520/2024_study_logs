@@ -21,25 +21,41 @@ class 게임맵최단거리Solution {
     static int[] dy = {0, 0, 1, -1};
 
     public int solution(int[][] maps) {
-        int answer = -1;
-
-        boolean[][] visit = new boolean[maps.length][maps[0].length];
+        int[][] visit = new int[maps.length][maps[0].length];
 
         BFS(maps, visit);
+        int answer = visit[maps.length - 1][maps[0].length - 1];
+
+        if(answer == 0) {
+            answer = -1;
+        }
 
         return answer;
     }
 
-    public void BFS(int[][] maps, boolean[][] visit) {
+    public void BFS(int[][] maps, int[][] visit) {
         int x = 0;
         int y = 0;
-        visit[x][y] = true;
+        visit[x][y] = 1;
         Queue<int[]> now = new LinkedList<>();
         now.add(new int[]{x, y});
 
         while(!now.isEmpty()) {
             int[] curXY = now.poll();
-            int moveX = curXY[0] +
+
+            for(int i = 0; i < 4; i++) {
+                int moveX = curXY[0] + dx[i];
+                int moveY = curXY[1] + dy[i];
+
+                if(moveX < 0 || moveX > maps.length - 1 || moveY < 0 || moveY > maps[0].length - 1) {
+                    continue;
+                }
+
+                if(visit[moveX][moveY] == 0 && maps[moveX][moveY] == 1) {
+                    visit[moveX][moveY] = visit[curXY[0]][curXY[1]] + 1;
+                    now.add(new int[]{moveX, moveY});
+                }
+            }
         }
     }
 }
