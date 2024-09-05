@@ -1,9 +1,6 @@
 package CodeTest.프로그래머스;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class 압축3차 {
     public static void main(String[] args) {
@@ -11,51 +8,45 @@ public class 압축3차 {
 
         압축3차Solution sol = new 압축3차Solution();
 
-        System.out.println(sol.solution("KAKAO"));
+        System.out.println(Arrays.toString(sol.solution("KAKAO")));
     }
 }
 
 class 압축3차Solution {
     public int[] solution(String msg) {
-        int[] answer;
-
-        String cur;
 
         List<Integer> tempAnswer = new ArrayList<>();
         String[] newMsg = msg.split("");
-
         Map<String, Integer> map = new HashMap<>();
-        StringBuilder sb;
 
-        for(char c = 'a'; c < 'z'; c++) {
-            map.put(String.valueOf(c), c - 96);
+        for(char c = 'A'; c <= 'Z'; c++) {
+            map.put(Character.toString(c), c - 64);
         }
 
-        for(int i = 0; i < newMsg.length; i++) {
-
-            sb = new StringBuilder();
-            cur = String.valueOf(newMsg[i]);
-
-            if(!map.containsKey(cur)) {
-                map.put(cur, map.size() + 1);
-                tempAnswer.add(map.get(cur));
-                continue;
-            }
-
-            sb.append(cur);
-
-            for(int j = i + 1; j < msg.length(); j++) {
-                sb.append(map.get(newMsg[j]));
-
-                if(!map.containsKey(sb.toString())) {
-
-                    map.put(sb.toString(), map.size() + 1);
-                    tempAnswer.add(map.get())
-
+        int idx = 0;
+        while(idx < msg.length()) {
+            StringBuilder str = new StringBuilder();
+            while(idx < msg.length()) {
+                if(!map.containsKey(str + newMsg[idx])) {
+                    break;
+                } else {
+                    str.append(newMsg[idx]);
                 }
+                idx++;
+            }
+            tempAnswer.add(map.get(str.toString()));
+
+            if(idx < msg.length()) {
+                str.append(newMsg[idx]);
+                map.put(str.toString(), map.size() + 1);
             }
         }
 
+        int[] answer = new int[tempAnswer.size()];
+
+        for(int i = 0; i < tempAnswer.size(); i++) {
+            answer[i] = tempAnswer.get(i);
+        }
 
         return answer;
     }
