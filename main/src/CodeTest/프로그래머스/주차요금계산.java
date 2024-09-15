@@ -64,10 +64,6 @@ class 주차요금계산Solution {
 
         List<Integer> list = new ArrayList<>();
 
-        for(Map.Entry<String, Integer> entry : car.entrySet()) {
-            list.add()
-        }
-
 
         return answer;
     }
