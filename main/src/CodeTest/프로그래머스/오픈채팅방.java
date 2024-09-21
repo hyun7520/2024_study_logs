@@ -33,6 +33,9 @@ class 오픈채팅방Solution {
                 if(!nickName.containsKey(recordList[1])) {
                     nickName.put(recordList[1], recordList[2]);
                 }
+                if(nickName.containsKey(recordList[1])) {
+                    nickName.put(recordList[1], recordList[2]);
+                }
                 queue.add(recordList[1] + " enter");
             }
 
@@ -46,16 +49,19 @@ class 오픈채팅방Solution {
         }
 
         String[] writeRecord;
+        String ans;
         int idx = 0;
         answer = new String[queue.size()];
 
         while(!queue.isEmpty()) {
             writeRecord = queue.poll().split(" ");
             if(writeRecord[1].equals("enter")) {
-                answer[idx] = "\"" + nickName.get(writeRecord[0]) + "님이 들어왔습니다." + "\"";
+                ans = nickName.get(writeRecord[0]) + "님이 들어왔습니다.";
+                answer[idx] = ans;
             }
             if(writeRecord[1].equals("leave")) {
-                answer[idx] = "\"" + nickName.get(writeRecord[0]) + "님이 나갔습니다." + "\"";
+                ans = nickName.get(writeRecord[0]) + "님이 나갔습니다.";
+                answer[idx] = ans;
             }
             idx++;
         }
