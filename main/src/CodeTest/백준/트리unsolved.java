@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class 트리 {
+public class 트리unsolved {
 
     static HashMap<Integer, List<Integer>> tree;
     static int answer = 0;
