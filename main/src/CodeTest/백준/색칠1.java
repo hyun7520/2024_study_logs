@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 public class 색칠1 {
 
     static int[][] paper;
-    static int fold, divide;
+    static int w, h, f, c;
     static int x1, x2, y1, y2;
 
     public static void main(String[] args) throws IOException {
@@ -21,9 +21,10 @@ public class 색칠1 {
             input[i] = Integer.parseInt(st.nextToken());
         }
 
-        paper = new int[input[0]][input[1]];
-        fold = input[2];
-        divide = input[3] + 1;
+        w = input[0];
+        h = input[1];
+        f = input[2];
+        c = input[3] + 1;
         x1 = input[4];
         y1 = input[5];
         x2 = input[6];
@@ -35,7 +36,12 @@ public class 색칠1 {
     public static int solution() {
         int answer = 0;
 
-        int left = paper.length -
+        if(x1 > f) {
+
+        }
+        else if(x1 <= f) {
+
+        }
 
         return answer;
     }
