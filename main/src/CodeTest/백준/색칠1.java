@@ -7,9 +7,8 @@ import java.util.StringTokenizer;
 
 public class 색칠1 {
 
-    static int[][] paper;
-    static int w, h, f, c;
-    static int x1, x2, y1, y2;
+    static long w, h, f, c;
+    static long x1, x2, y1, y2;
 
     public static void main(String[] args) throws IOException {
 
@@ -33,14 +32,27 @@ public class 색칠1 {
         System.out.println(solution());
     }
 
-    public static int solution() {
-        int answer = 0;
+    public static long solution() {
+        long answer = 0;
 
-        if(x1 > f) {
+        long total = w * h;
+        // 접힌 영역의 w 길이
+        long folded;
 
+        if(f > w / 2) {
+            folded = w - f;
+        } else {
+            folded = f;
         }
-        else if(x1 <= f) {
 
+        if(folded <= x1) {
+            answer = total - c * (x2 - x1) * (y2 - y1);
+        }
+        else if(folded < x2) {
+            answer = total - 2 * c * (folded - x1) * (y2 - y1) - c * (x2 - folded) * (y2 - y1);
+        }
+        else {
+            answer = total - c * 2 * (x2 - x1) * (y2 - y1);
         }
 
         return answer;
