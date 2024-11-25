@@ -11,10 +11,7 @@ public class 언더프라임 {
         int a = sc.nextInt();
         int b = sc.nextInt();
 
-
-
         System.out.println(solution(a, b));
-
     }
 
     public static int solution(int a, int b) {
