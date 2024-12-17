@@ -34,7 +34,7 @@ public class 컴백홈 {
         }
 
         visit[R-1][0] = true;
-        dfs(R-1, 0, 0);
+        dfs(R-1, 0, 1);
 
         System.out.println(answer);
     }
@@ -49,14 +49,11 @@ public class 컴백홈 {
         for(int i = 0; i < 4; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
-            if(nx >= 0 && nx < R && ny >= 0 && ny < C) {
-                if(!visit[nx][ny] && map[nx][ny] == '.') {
-                    visit[nx][ny] = true;
-                    dfs(nx, ny, depth + 1);
-                    visit[nx][ny] = false;
-                }
+            if(nx >= 0 && nx < R && ny >= 0 && ny < C && !visit[nx][ny] && map[nx][ny] == '.') {
+                visit[nx][ny] = true;
+                dfs(nx, ny, depth + 1);
+                visit[nx][ny] = false;
             }
         }
-
     }
 }
