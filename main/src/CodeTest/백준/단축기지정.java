@@ -3,14 +3,16 @@ package CodeTest.백준;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class 단축기지정 {
 
     static String[] str;
     static Set<Character> shortCuts;
-    static String[] outputs;
+    static List<String> outputs;
 
     public static void main(String[] args) throws IOException {
 
@@ -18,8 +20,7 @@ public class 단축기지정 {
 
         int n = Integer.parseInt(br.readLine());
         str = new String[n];
-        shortCuts = new HashSet<>();
-        outputs = new String[str.length];
+        outputs = new ArrayList<>();
 
         for(int i = 0; i < n; i++) {
             String st = br.readLine();
@@ -37,55 +38,60 @@ public class 단축기지정 {
 
         String[] split;
         boolean flag;
+        shortCuts = new HashSet<>();
 
-        for(int i = 0; i < str.length; i++) {
-            split = str[i].split(" ");
+        for (String str : str) {
+            split = str.split(" ");
             flag = false;
+            int idx = 0;
 
-            for(int j = 0; j < split.length; j++) {
-                if(!shortCuts.contains(split[j].charAt(0))) {
-                    shortCuts.add(Character.toUpperCase(split[j].charAt(0)));
-                    doOutPut(str[i], 0);
+            for (String s : split) {
+                if (!shortCuts.contains(s.charAt(0))) {
+                    shortCuts.add(Character.toUpperCase(s.charAt(0)));
+                    shortCuts.add(Character.toLowerCase(s.charAt(0)));
+                    doOutPut(str, idx);
                     flag = true;
                 }
+                if (flag) {
+                    break;
+                }
+                idx += s.length() + 1;
 
-                if(flag) {
+            }
+
+            if (flag) {
+                continue;
+            }
+
+            for(int i = 0; i < str.length(); i++) {
+                if(!shortCuts.contains(str.charAt(i)) && str.charAt(i) != ' ') {
+                    shortCuts.add(Character.toUpperCase(str.charAt(i)));
+                    shortCuts.add(Character.toLowerCase(str.charAt(i)));
+                    doOutPut(str, i);
+                    flag = true;
+                }
+                if (flag) {
                     break;
                 }
             }
 
-            if(flag) {
-                continue;
-            } else {
-                for(int j = 0; j < split.length; j++) {
-                    flag = false;
-                    for(int k = 0; k < split[i].length(); k++) {
-                        if(!shortCuts.contains(split[i].charAt(k))) {
-                            shortCuts.add(Character.toUpperCase(split[i].charAt(k)));
-                            doOutPut(str[i], k);
-                            flag = true;
-                        }
-                    }
-                    if(flag) {
-                        continue;
-                    }
-                }
+            if(!flag) {
+                outputs.add(str);
             }
-
         }
+
     }
 
-    public static void doOutPut(String str, int idx) {
+    public static void doOutPut(String option, int idx) {
 
-        StringBuilder sb = new StringBuilder(str);
+        StringBuilder sb = new StringBuilder(option);
         if(idx == 0) {
             sb.insert(0, '[');
             sb.insert(2, ']');
-            outputs[idx] = sb.toString();
         } else {
-            sb.insert(idx - 1, '[');
-            sb.insert(idx + 1, ']');
-            outputs[idx] = sb.toString();
+            sb.insert(idx, '[');
+            sb.insert(idx + 2, ']');
         }
+        outputs.add(sb.toString());
     }
 }
