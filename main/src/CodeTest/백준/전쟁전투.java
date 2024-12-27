@@ -39,7 +39,7 @@ public class 전쟁전투 {
                 if(!visited[i][j]) {
                     visited[i][j] = true;
                     Node start = new Node(i, j);
-                    bfs(start);
+                    bfs(start, map[i][j]);
                 }
             }
         }
@@ -47,16 +47,13 @@ public class 전쟁전투 {
         System.out.println(w + " " + b);
     }
 
-    public static void bfs(Node node) {
+    static void bfs(Node node, char side) {
 
         Queue<Node> queue = new LinkedList<Node>();
-        int tW = 0;
-        int tB = 0;
 
-        if(map[node.x][node.y] == 'W') {
-            queue.offer(node);
-            w++;
-        }
+        queue.offer(node);
+
+        int cnt = 1;
 
         while(!queue.isEmpty()) {
             Node cur = queue.poll();
@@ -66,15 +63,19 @@ public class 전쟁전투 {
                 if(nx < 0 || ny < 0 || nx >= M || ny >= N) {
                     continue;
                 }
-                if(map[nx][ny] == 'W' && !visited[nx][ny]) {
+                if(map[nx][ny] == side && !visited[nx][ny]) {
                     visited[nx][ny] = true;
-                    w++;
+                    queue.offer(new Node(nx, ny));
+                    cnt++;
                 }
             }
         }
 
-
-
+        if(side == 'W') {
+            w += (cnt * cnt);
+        } else {
+            b += (cnt * cnt);
+        }
     }
 
     static class Node {
