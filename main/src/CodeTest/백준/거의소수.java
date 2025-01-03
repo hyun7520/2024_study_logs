@@ -3,6 +3,7 @@ package CodeTest.백준;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class 거의소수 {
@@ -23,28 +24,31 @@ public class 거의소수 {
 
     public static int solution() {
 
-        boolean[] notPrime = new boolean[(int) Math.sqrt(B) + 1];
+        boolean[] isPrime = new boolean[(int) Math.sqrt(B) + 1];
 
-        notPrime[0] = notPrime[1] = true;
-        for(int i = 2; i < notPrime.length; i++) {
-            if(notPrime[i]) {
+        Arrays.fill(isPrime, true);
+        isPrime[0] = isPrime[1] = false;
+
+        for(int i = 2; i < isPrime.length; i++) {
+            if(!isPrime[i]) {
                 continue;
             }
-            for(int j = i * 2; j < notPrime.length; j += i) {
-                notPrime[j] = true;
+            for(int j = i * 2; j < isPrime.length; j += i) {
+                isPrime[j] = false;
             }
         }
 
         int answer = 0;
-        for(int i = 2; i < notPrime.length; i++) {
-            if(!notPrime[i]) {
-                long cur = i;
-                while(cur <= (double) B / i && cur >= (double) A / i) {
-                    answer++;
-                    cur *= i;
+        for(int i = 2; i < isPrime.length; i++) {
+            if(isPrime[i]) {
+                for(long cur = i; cur <= B / i; cur *= i) {
+                    if(cur * i >= A) {
+                        answer++;
+                    }
                 }
             }
         }
+
         return answer;
     }
 }
