@@ -39,9 +39,11 @@ public class 캡틴이다솜 {
         Arrays.fill(cnt, Integer.MAX_VALUE);
         cnt[0] = 0;
         cnt[1] = 1;
+        // cnt 배열의 i는 대포의 개수를 의미
         for(int i = 2; i <= n; i++) {
             for(int j = 1; j < endIdx; j++) {
-                if(dp[j] > i) break;
+                if(dp[j] > i) break; // 현재 층의 사면체 개수가 입력된 대포아르이 개수보다 크면 break
+                // 2개일 경우 부터 구한다.
                 cnt[i] = Math.min(cnt[i], cnt[i - dp[j]] + 1);
             }
         }
