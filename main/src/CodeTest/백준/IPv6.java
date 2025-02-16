@@ -50,7 +50,8 @@ public class IPv6 {
         for (String s : groups) {
             StringBuilder sb = new StringBuilder(s);
             // 0000인 경우 continue
-            if (sb.isEmpty()) continue;
+            // 백준의 경우 자바11을 쓰며 isEmpty()를 사용하면 컴파일 에러가 뜬다.
+            if (sb.length() == 0) continue;
 
             while (sb.length() < 4) {
                 sb.insert(0, "0");
